@@ -7,4 +7,24 @@
   body {
     @apply h-full;
   }
+
+  .btn {
+    @apply bg-green px-5 py-1 font-bold uppercase rounded text-white shadow-sm;
+  }
+
+  .floating-button {
+    @apply px-2 py-1 bg-gray-400 text-xs rounded-sm bg-opacity-30;
+  }
+
+  .floating-button.is-active {
+    @apply bg-green bg-opacity-30;
+  }
+
+  .bubble-menu-item {
+    @apply px-2 py-1 bg-gray-400 text-xs rounded-lg bg-opacity-30;
+  }
+
+  .bubble-menu-item.is-active {
+    @apply bg-green bg-opacity-30;
+  }
 }

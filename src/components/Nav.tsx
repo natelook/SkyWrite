@@ -1,38 +1,55 @@
-import { Link } from "react-router-dom";
-import logo from "../imgs/reddit-logo.png";
+import { Link } from 'react-router-dom';
+import AuthButton, { AuthButtonProps } from './AuthButton';
+import Container from './Container';
+import { MdOutlineCreate } from 'react-icons/md';
 
 const links = [
-  { name: "Hot", href: "/" },
-  { name: "New", href: "/new" },
-  { name: "Rising", href: "/rising" },
-  { name: "Top", href: "/top" },
+  { name: 'Featured', href: '/' },
+  { name: 'Latest', href: '/latest' },
 ];
 
-const Nav: React.FC<{ auth: () => void }> = ({ auth }) => (
-  <div className='py-4 mb-12 flex justify-between'>
-    <div className='flex space-x-8 items-center'>
-      <Link to='/'>
-        <div className='flex items-center space-x-3'>
-          <img src={logo} height='30px' width='30px' alt='Logo' />
-          <h1 className='text-xl font-bold'>SkyReddit</h1>
+const Nav: React.FC<{ auth: AuthButtonProps }> = ({ auth }) => (
+  <div className="text-white bg-black">
+    <Container>
+      <div className="py-4 mb-12 flex justify-between">
+        <div className="flex space-x-8 items-center">
+          <Link to="/">
+            <div className="flex items-center space-x-3">
+              <h1 className="text-3xl font-bold">
+                <span className="text-green">Sky</span>Write
+              </h1>
+            </div>
+          </Link>
+          <ul className="flex space-x-3">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  to={link.href}
+                  className="text-white font-bold hover:text-green transition duration-200"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </Link>
-      <ul className='flex space-x-3'>
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link to={link.href} className='text-blue-600'>
-              {link.name}
+        <div className="flex items-center space-x-3">
+          {auth.userAuthStatus && (
+            <Link to="/create">
+              <span className="text-xl">
+                <MdOutlineCreate />
+              </span>
             </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <button
-      onClick={auth}
-      className='bg-[#00c65e] px-5 py-1 rounded text-white shadow-sm'
-    >
-      Login
-    </button>
+          )}
+          <AuthButton
+            isKernelLoaded={auth.isKernelLoaded}
+            bootloaderLoaded={auth.bootloaderLoaded}
+            userAuthStatus={auth.userAuthStatus}
+            login={auth.login}
+          />
+        </div>
+      </div>
+    </Container>
   </div>
 );
 

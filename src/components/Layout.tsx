@@ -1,17 +1,20 @@
-import { Outlet } from "react-router-dom";
-import Container from "./Container";
-import Footer from "./Footer";
-import Nav from "./Nav";
+import useKernelAuth from 'hooks/useKernelAuth';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Container from './Container';
+import Footer from './Footer';
+import Nav from './Nav';
 
 export default function Layout() {
-  const auth = async () => {
-    console.log("authenticating...");
-  };
+  const { userAuthStatus, bootloaderLoaded, isKernelLoaded, login } =
+    useKernelAuth();
   return (
-    <Container>
-      <Nav auth={auth} />
-      <Outlet />
-      <Footer />
-    </Container>
+    <React.Fragment>
+      <Nav auth={{ userAuthStatus, bootloaderLoaded, isKernelLoaded, login }} />
+      <Container>
+        <Outlet />
+      </Container>
+      <Footer />{' '}
+    </React.Fragment>
   );
 }
